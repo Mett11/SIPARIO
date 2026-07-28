@@ -123,7 +123,7 @@ export const TheatreRepository = {
   // Shows
   async getAllShows(includeDrafts = false): Promise<Show[]> {
     try {
-      const res = await fetch('/api/shows');
+      const res = await fetch('/api/spettacoli');
       const json = await res.json();
       if (json.success) {
         if (!includeDrafts) {
@@ -139,7 +139,7 @@ export const TheatreRepository = {
 
   async getShowBySlug(slug: string): Promise<Show | null> {
     try {
-      const res = await fetch(`/api/shows/${encodeURIComponent(slug)}`);
+      const res = await fetch(`/api/spettacoli/${encodeURIComponent(slug)}`);
       const json = await res.json();
       if (json.success) return json.data;
     } catch (e) {
@@ -150,7 +150,7 @@ export const TheatreRepository = {
 
   async saveShow(showData: Partial<Show>, role: Role = 'editor'): Promise<Show> {
     const isEdit = !!showData.id;
-    const url = isEdit ? `/api/shows/${showData.id}` : '/api/shows';
+    const url = isEdit ? `/api/spettacoli/${showData.id}` : '/api/spettacoli';
     const method = isEdit ? 'PUT' : 'POST';
 
     const res = await fetch(url, {
@@ -164,7 +164,7 @@ export const TheatreRepository = {
   },
 
   async publishShow(id: string, publish: boolean, role: Role = 'editor'): Promise<Show> {
-    const res = await fetch(`/api/shows/${id}/publish`, {
+    const res = await fetch(`/api/spettacoli/${id}/publish`, {
       method: 'POST',
       headers: getAuthHeaders(role),
       body: JSON.stringify({ publish }),
@@ -175,7 +175,7 @@ export const TheatreRepository = {
   },
 
   async deleteShow(id: string, role: Role = 'admin'): Promise<boolean> {
-    const res = await fetch(`/api/shows/${id}`, {
+    const res = await fetch(`/api/spettacoli/${id}`, {
       method: 'DELETE',
       headers: getAuthHeaders(role),
     });
@@ -353,7 +353,7 @@ export const TheatreRepository = {
     marketingConsented?: boolean;
     privacyPolicyVersion?: string;
   }): Promise<{ success: boolean; data: BookingRequest; emailPreview?: any }> {
-    const res = await fetch('/api/public/bookings', {
+    const res = await fetch('/api/prenota', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
@@ -372,7 +372,7 @@ export const TheatreRepository = {
     if (filters?.status) query.set('status', filters.status);
     if (filters?.search) query.set('search', filters.search);
 
-    const res = await fetch(`/api/admin/bookings?${query.toString()}`, {
+    const res = await fetch(`/api/admin/prenotazioni?${query.toString()}`, {
       headers: getAuthHeaders(role),
     });
     const json = await res.json();
@@ -381,7 +381,7 @@ export const TheatreRepository = {
   },
 
   async getBookingDetail(id: string, role: Role = 'box_office'): Promise<{ data: BookingRequest; events: BookingEvent[] }> {
-    const res = await fetch(`/api/admin/bookings/${encodeURIComponent(id)}`, {
+    const res = await fetch(`/api/admin/prenotazioni/${encodeURIComponent(id)}`, {
       headers: getAuthHeaders(role),
     });
     const json = await res.json();
@@ -395,7 +395,7 @@ export const TheatreRepository = {
     reason?: string,
     role: Role = 'box_office'
   ): Promise<BookingRequest> {
-    const res = await fetch(`/api/admin/bookings/${encodeURIComponent(id)}/status`, {
+    const res = await fetch(`/api/admin/prenotazioni/${encodeURIComponent(id)}/status`, {
       method: 'PATCH',
       headers: getAuthHeaders(role),
       body: JSON.stringify({ status, reason }),
@@ -406,7 +406,7 @@ export const TheatreRepository = {
   },
 
   async resendBookingEmail(id: string, role: Role = 'box_office'): Promise<{ message: string; emailPreview: any }> {
-    const res = await fetch(`/api/admin/bookings/${encodeURIComponent(id)}/resend-email`, {
+    const res = await fetch(`/api/admin/prenotazioni/${encodeURIComponent(id)}/resend-email`, {
       method: 'POST',
       headers: getAuthHeaders(role),
     });
@@ -419,7 +419,7 @@ export const TheatreRepository = {
     filters?: { performanceId?: string; status?: string },
     role: Role = 'box_office'
   ): Promise<{ filename: string; csvContent: string; count: number }> {
-    const res = await fetch('/api/admin/bookings/export', {
+    const res = await fetch('/api/admin/prenotazioni/export', {
       method: 'POST',
       headers: getAuthHeaders(role),
       body: JSON.stringify(filters || {}),
@@ -430,7 +430,7 @@ export const TheatreRepository = {
   },
 
   async checkInBooking(idOrCode: string, role: Role = 'box_office'): Promise<{ message: string; data: BookingRequest }> {
-    const res = await fetch(`/api/admin/bookings/${encodeURIComponent(idOrCode)}/check-in`, {
+    const res = await fetch(`/api/admin/prenotazioni/${encodeURIComponent(idOrCode)}/check-in`, {
       method: 'POST',
       headers: getAuthHeaders(role),
     });
@@ -440,7 +440,7 @@ export const TheatreRepository = {
   },
 
   async deleteBooking(id: string, role: Role = 'admin'): Promise<{ message: string }> {
-    const res = await fetch(`/api/admin/bookings/${encodeURIComponent(id)}`, {
+    const res = await fetch(`/api/admin/prenotazioni/${encodeURIComponent(id)}`, {
       method: 'DELETE',
       headers: getAuthHeaders(role),
     });
