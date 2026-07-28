@@ -35,11 +35,24 @@ export async function onRequestGet({ request, env, data }: any) {
       result = await stmt.bind(...params).all();
     }
 
+    const data = result.results.map((row: any) => ({
+      id: row.id,
+      code: row.code,
+      performanceId: row.performance_id,
+      fullName: row.full_name,
+      email: row.email,
+      phone: row.phone,
+      seatsCount: row.seats_count,
+      notes: row.notes,
+      status: row.status,
+      createdAt: row.created_at
+    }));
+
     return new Response(JSON.stringify({ 
       success: true, 
-      data: result.results,
+      data: data,
       metrics: {
-        totalBookings: result.results.length,
+        totalBookings: data.length,
         // compute other metrics based on result...
       }
     }), { headers: { 'Content-Type': 'application/json' } });
