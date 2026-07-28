@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-nero-palco: #050505;
+    --color-velluto-bordeaux: #1A0505;
+    --color-rosso-sipario: #E60000;
+    --color-ottone: #F5F5F5;
+    --color-carta-avorio: #FFFFFF;
+    --color-luce-fredda: #333333;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: var(--color-nero-palco);
+    color: var(--color-carta-avorio);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, .font-serif-display {
+    font-family: 'Playfair Display', Georgia, serif;
+    letter-spacing: -0.02em;
+  }
+
+  .font-cinzel {
+    font-family: 'Cinzel', serif;
+  }
+}
+
+/* Custom Utilities for Theatre Theme */
+.text-ottone { color: var(--color-ottone); }
+.bg-ottone { background-color: var(--color-ottone); }
+.border-ottone { border-color: var(--color-ottone); }
+
+.bg-velluto { background-color: var(--color-velluto-bordeaux); }
+.bg-rosso-sipario { background-color: var(--color-rosso-sipario); }
+.bg-nero-palco { background-color: var(--color-nero-palco); }
+.text-avorio { color: var(--color-carta-avorio); }
+.bg-avorio { background-color: var(--color-carta-avorio); }
+
+/* Modern abstract gradients */
+.curtain-gradient {
+  background: radial-gradient(circle at 50% 0%, rgba(230,0,0,0.15) 0%, rgba(5,5,5,1) 70%);
+}
+
+.gold-glow {
+  box-shadow: 0 0 40px rgba(230, 0, 0, 0.2);
+}
+
+.gold-border-glow {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.02);
+}
+
+/* Accessibility focus ring */
+*:focus-visible {
+  outline: 2px solid var(--color-rosso-sipario) !important;
+  outline-offset: 3px !important;
+}
+
+/* Glassmorphism utilities */
+.glass-panel {
+  background: rgba(15, 15, 15, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}

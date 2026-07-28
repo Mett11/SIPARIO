@@ -1,0 +1,30 @@
+{
+  "posts": [
+    {
+      "id": "post-1",
+      "slug": "nuova-stagione-teatrale-2026",
+      "title": "Al via la Nuova Stagione Teatrale 2026 della Compagnia Il Sipario",
+      "excerpt": "Presentato il nuovo cartellone ricco di tradizioni, commedie esilaranti e momenti di riflessione per la comunità di Canicattini Bagni.",
+      "content": "Siamo felici di annunciare il calendario ufficiale della nuova stagione teatrale organizzata dall'Associazione di Promozione Sociale Il Sipario. Un percorso culturale e umano che unisce la passione per il grande teatro dialettale siciliano all'innovazione scenica, con l'obiettivo di coinvolgere giovani, famiglie e appassionati storici.\n\nTutti gli spettacoli si terranno presso il Teatro Comunale e nelle piazze estive di Canicattini Bagni. Le prenotazioni dei posti sono aperte direttamente da questo sito senza alcun costo aggiuntivo.",
+      "coverUrl": "https://images.unsplash.com/photo-1460723237483-7a6dc9d0b212?auto=format&fit=crop&w=1200&q=80",
+      "category": "Comunicati Stampa",
+      "publishedAt": "2026-07-15T10:00:00.000Z",
+      "author": "Ufficio Stampa Il Sipario",
+      "status": "published",
+      "validationStatus": "DA_VALIDARE_CON_LA_COMPAGNIA"
+    },
+    {
+      "id": "post-2",
+      "slug": "laboratorio-teatrale-giovani",
+      "title": "Aperte le iscrizioni al Laboratorio Teatrale Popolare",
+      "excerpt": "Un'opportunità per giovani e adulti per avvicinarsi alla dizione, all'espressione corporea e alla recitazione scenica.",
+      "content": "La compagnia apre le porte a chiunque voglia sperimentare l'arte del teatro. Il laboratorio si terrà nei locali della sede sociale in Via Antonino Uccello 6 a Canicattini Bagni.",
+      "coverUrl": "https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?auto=format&fit=crop&w=1200&q=80",
+      "category": "Iniziative",
+      "publishedAt": "2026-06-20T15:30:00.000Z",
+      "author": "Direzione Artistica",
+      "status": "published",
+      "validationStatus": "DA_VALIDARE_CON_LA_COMPAGNIA"
+    }
+  ]
+}

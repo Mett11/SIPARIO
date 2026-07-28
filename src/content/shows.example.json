@@ -1,0 +1,106 @@
+{
+  "shows": [
+    {
+      "id": "show-1",
+      "slug": "fiat-voluntas-dei",
+      "title": "Fiat Voluntas Dei",
+      "subtitle": "Commedia brillante in tre atti",
+      "author": "Giuseppe Macrì",
+      "director": "Direzione Artistica Il Sipario",
+      "category": "Commedia Dialettale",
+      "status": "in_scena",
+      "synopsis": "Nel cuore della Sicilia dei primi del Novecento, Padre Cipriano gestisce con amabile astuzia e benevolenza le vicende amorose e i pettegolezzi del paese. Una commedia classica ricca di comicità genuina, morale popolare ed emozione pura.",
+      "posterUrl": "https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?auto=format&fit=crop&w=1200&q=80",
+      "galleryUrls": [
+        "https://images.unsplash.com/photo-1460723237483-7a6dc9d0b212?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1514306191717-452ec28c7814?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1518834107812-67b0b7c58434?auto=format&fit=crop&w=1200&q=80"
+      ],
+      "castAndCredits": [
+        { "role": "Padre Cipriano", "name": "Attore Principale [DA VALIDARE CON LA COMPAGNIA]" },
+        { "role": "Donna Barbara", "name": "Attrice [DA VALIDARE CON LA COMPAGNIA]" },
+        { "role": "Scenografia & Costumi", "name": "Gruppo Il Sipario" }
+      ],
+      "durationMinutes": 110,
+      "targetAudience": "Per tutti",
+      "nextPerformanceId": "perf-101",
+      "validationStatus": "DA_VALIDARE_CON_LA_COMPAGNIA"
+    },
+    {
+      "id": "show-2",
+      "slug": "miseria-e-nobilta",
+      "title": "Miseria e Nobiltà",
+      "subtitle": "Capolavoro comico della tradizione teatrale",
+      "author": "Eduardo Scarpetta",
+      "director": "Compagnia Il Sipario",
+      "category": "Commedia Classica",
+      "status": "in_arrivo",
+      "synopsis": "Speranzosi e affamati, Felice Sciosciammocca e la sua strampalata famiglia si prestano a fingere di essere i nobili parenti del ricco marchesino Eugenio, dando vita a un vortice esilarante di equivoci e colpi di scena.",
+      "posterUrl": "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1200&q=80",
+      "galleryUrls": [
+        "https://images.unsplash.com/photo-1503095396549-807759245b35?auto=format&fit=crop&w=1200&q=80"
+      ],
+      "castAndCredits": [
+        { "role": "Felice Sciosciammocca", "name": "Attore [DA VALIDARE CON LA COMPAGNIA]" },
+        { "role": "Pasquale", "name": "Attore [DA VALIDARE CON LA COMPAGNIA]" }
+      ],
+      "durationMinutes": 100,
+      "targetAudience": "Per tutti",
+      "nextPerformanceId": "perf-102",
+      "validationStatus": "DA_VALIDARE_CON_LA_COMPAGNIA"
+    },
+    {
+      "id": "show-3",
+      "slug": "l-aria-del-continente",
+      "title": "L'Aria del Continente",
+      "subtitle": "Commedia esilarante siciliana",
+      "author": "Nino Martoglio",
+      "director": "Compagnia Il Sipario",
+      "category": "Teatro Siciliano",
+      "status": "archivio",
+      "synopsis": "Un proprietario terriero siciliano torna a casa dall'ospedale con velleità di modernità continentale, scatenando lo scompiglio nella sua famiglia e nell'intero paese.",
+      "posterUrl": "https://images.unsplash.com/photo-1469488865564-c2de10f69f96?auto=format&fit=crop&w=1200&q=80",
+      "galleryUrls": [],
+      "castAndCredits": [
+        { "role": "Don Cola Duscio", "name": "Attore [DA VALIDARE CON LA COMPAGNIA]" }
+      ],
+      "durationMinutes": 95,
+      "targetAudience": "Per tutti",
+      "validationStatus": "DA_VALIDARE_CON_LA_COMPAGNIA"
+    }
+  ],
+  "performances": [
+    {
+      "id": "perf-101",
+      "showId": "show-1",
+      "showTitle": "Fiat Voluntas Dei",
+      "dateTime": "2026-08-15T21:00:00.000Z",
+      "venueName": "Teatro Comunale di Canicattini Bagni",
+      "venueAddress": "Via Garibaldi, Canicattini Bagni (SR)",
+      "capacityTotal": 150,
+      "seatsReserved": 84,
+      "bookingOpenAt": "2026-07-01T00:00:00.000Z",
+      "bookingCloseAt": "2026-08-15T18:00:00.000Z",
+      "bookingStatus": "open",
+      "seatingMode": "general_admission",
+      "instructions": "Si prega di presentarsi all'ingresso 20 minuti prima dell'inizio dello spettacolo esibendo il codice di prenotazione. Il pagamento si effettua direttamente alla cassa del teatro.",
+      "ticketPriceDisplay": "Offerta libera / Contributo associativo"
+    },
+    {
+      "id": "perf-102",
+      "showId": "show-2",
+      "showTitle": "Miseria e Nobiltà",
+      "dateTime": "2026-09-05T20:30:00.000Z",
+      "venueName": "Piazza XX Settembre (Arena Estiva)",
+      "venueAddress": "Piazza XX Settembre, Canicattini Bagni (SR)",
+      "capacityTotal": 200,
+      "seatsReserved": 25,
+      "bookingOpenAt": "2026-08-01T00:00:00.000Z",
+      "bookingCloseAt": "2026-09-05T17:00:00.000Z",
+      "bookingStatus": "open",
+      "seatingMode": "general_admission",
+      "instructions": "Ingresso libero previa prenotazione posto per le sedie riservate.",
+      "ticketPriceDisplay": "Ingresso Gratuito con prenotazione"
+    }
+  ]
+}

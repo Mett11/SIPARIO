@@ -1,0 +1,245 @@
+{
+  "siteConfig": {
+    "name": "Il Sipario – Compagnia Teatrale A.P.S.",
+    "subName": "Compagnia Teatrale Amatoriale",
+    "city": "Canicattini Bagni (SR)",
+    "address": "Via Antonino Uccello 6, 96010 Canicattini Bagni (SR)",
+    "phone": "+39 339 492 3772",
+    "email": "ilsipariocompagniateatrale@gmail.com",
+    "facebookUrl": "https://www.facebook.com/ilsipariocanicattinibagni/",
+    "instagramUrl": "https://www.instagram.com/compagnia_ilsipario/",
+    "youtubeUrl": "https://www.youtube.com/channel/UC9CEjFQvC9LgSfypbaP5LfA",
+    "toneOfVoice": [
+      "Accogliente",
+      "Tradizionale",
+      "Passionale",
+      "Comunitario"
+    ],
+    "noticeMessage": "Benvenuti nel nuovo sito ufficiale della Compagnia Teatrale Il Sipario A.P.S."
+  },
+  "shows": [
+    {
+      "id": "show-2",
+      "slug": "miseria-e-nobilta",
+      "title": "Miseria e Nobiltà",
+      "subtitle": "Adattamento della celebre farsa di Eduardo Scarpetta",
+      "author": "Eduardo Scarpetta",
+      "director": "Sebastiano Magliocco",
+      "category": "Commedia Classica",
+      "status": "in_arrivo",
+      "publication_status": "published",
+      "synopsis": "La storia di Felice Sciosciammocca, uno scrivano povero in canna che viene ingaggiato da un ricco giovanotto per impersonare un nobile e consentire il matrimonio con la figlia di un ricco cuoco arricchito. Risate assicurate e riflessione sul valore della dignità.",
+      "posterUrl": "https://images.unsplash.com/photo-1514306191717-452ec28c7814?auto=format&fit=crop&q=80&w=1200",
+      "galleryUrls": [],
+      "castAndCredits": [
+        {
+          "role": "Felice Sciosciammocca",
+          "name": "Sebastiano Magliocco"
+        },
+        {
+          "role": "Pasquale",
+          "name": "Corrado Gazzara"
+        }
+      ],
+      "durationMinutes": 120,
+      "targetAudience": "Famiglie",
+      "validation_status": "VALIDATED"
+    }
+  ],
+  "performances": [
+    {
+      "id": "perf-1",
+      "showId": "show-1",
+      "showTitle": "Fiat Voluntas Dei",
+      "dateTime": "2026-08-15T21:00:00.000Z",
+      "venueName": "Teatro Comunale G. Verdi",
+      "venueAddress": "Via Iblea 4, Canicattini Bagni (SR)",
+      "capacityTotal": 180,
+      "seatsReserved": 45,
+      "bookingOpenAt": "2026-07-01T00:00:00.000Z",
+      "bookingCloseAt": "2026-08-15T18:00:00.000Z",
+      "bookingStatus": "open",
+      "seatingMode": "general_admission",
+      "instructions": "Presentarsi in teatro almeno 20 minuti prima dell inizio dello spettacolo.",
+      "ticketPriceDisplay": "Ingresso Gratuito / Offerta Libera"
+    }
+  ],
+  "blogPosts": [
+    {
+      "id": "post-1",
+      "slug": "riapertura-stagione-teatrale-2026",
+      "title": "Al via i preparativi per la nuova Stagione Teatrale a Canicattini Bagni",
+      "excerpt": "La compagnia Il Sipario riapre il sipario con un ricco cartellone che unisce grande tradizione siciliana e commedia brillante.",
+      "content": "Cari amici del teatro e sostenitori de \"Il Sipario\", siamo entusiasti di annunciarvi che la macchina organizzativa per la nuova stagione teatrale è in pieno movimento.\n\nDopo i successi delle scorse stagioni, la nostra associazione di promozione sociale torna in scena con un programma curato nei minimi dettagli per regalare momenti di sereno intrattenimento e riflessione alla comunità di Canicattini Bagni e dell'intera provincia di Siracusa.\n\nNei prossimi giorni sveleremo le date ufficiali delle repliche e le modalità per richiedere la prenotazione dei posti in sala senza costi di intermediazione online. Vi aspettiamo numerosi!",
+      "coverUrl": "https://images.unsplash.com/photo-1460723237483-7a6dc9d0b212?auto=format&fit=crop&q=80&w=1200",
+      "category": "Notizie & Stagione",
+      "publishedAt": "2026-07-20T10:00:00.000Z",
+      "author": "Sebastiano Magliocco",
+      "status": "published",
+      "validation_status": "VALIDATED"
+    }
+  ],
+  "mediaAssets": [
+    {
+      "id": "media-1",
+      "filename": "locandina-fiat-voluntas-dei.jpg",
+      "filePath": "https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?auto=format&fit=crop&q=80&w=1200",
+      "fileSize": 450000,
+      "mimeType": "image/jpeg",
+      "altText": "Locandina ufficiale dello spettacolo Fiat Voluntas Dei",
+      "r2Key": "r2/shows/fiat-voluntas-dei.jpg",
+      "createdAt": "2026-07-15T12:00:00.000Z"
+    }
+  ],
+  "companyCast": [
+    {
+      "id": "cast-1",
+      "name": "Sebastiano Magliocco",
+      "role": "Regista e Attore Protagonista",
+      "photoUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600",
+      "bio": "Fondatore e pilastro artistico dell'Associazione Il Sipario. Regista e interprete di grandi classici del teatro dialettale siciliano.",
+      "shows": "Fiat Voluntas Dei, Miseria e Nobiltà"
+    },
+    {
+      "id": "cast-2",
+      "name": "Elena Guastella",
+      "role": "Attrice e Responsabile Notizie",
+      "photoUrl": "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=600",
+      "bio": "Attrice eclettica con spiccate doti comiche e drammatiche, anima del gruppo e curatrice della comunicazione dell'associazione.",
+      "shows": "Fiat Voluntas Dei"
+    },
+    {
+      "id": "cast-3",
+      "name": "Paolo Cultrera",
+      "role": "Attore e Direttore di Scena",
+      "photoUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=600",
+      "bio": "Caratterista di talento e coordinatore dell'allestimento scenico e delle scenografie della compagnia.",
+      "shows": "Fiat Voluntas Dei, Miseria e Nobiltà"
+    },
+    {
+      "id": "cast-4",
+      "name": "Lucia Uccello",
+      "role": "Attrice e Costumista",
+      "photoUrl": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=600",
+      "bio": "Sarta di scena e bravissima interprete, cura l'autenticità dei costumi d'epoca per le produzioni teatrali.",
+      "shows": "Fiat Voluntas Dei"
+    },
+    {
+      "id": "cast-5",
+      "name": "Corrado Gazzara",
+      "role": "Attore",
+      "photoUrl": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=600",
+      "bio": "Spalla comica insostituibile, presente nelle principali produzioni di teatro popolare della compagnia.",
+      "shows": "Miseria e Nobiltà"
+    }
+  ],
+  "auditLogs": [
+    {
+      "id": "log-1785156246479-4ij2",
+      "userId": "usr-admin-1",
+      "userEmail": "admin@ilsipario.it",
+      "action": "DELETE",
+      "entityType": "SHOW",
+      "entityId": "show-1",
+      "detailsJson": "{\"title\":\"Fiat Voluntas Dei\"}",
+      "createdAt": "2026-07-27T12:44:06.479Z"
+    },
+    {
+      "id": "log-1",
+      "userId": "usr-admin-1",
+      "userEmail": "admin@ilsipario.it",
+      "action": "CREATE",
+      "entityType": "SHOW",
+      "entityId": "show-1",
+      "detailsJson": "{\"title\":\"Fiat Voluntas Dei\",\"slug\":\"fiat-voluntas-dei\"}",
+      "createdAt": "2026-07-20T08:00:00.000Z"
+    }
+  ],
+  "bookingSettings": {
+    "maxSeatsPerBooking": 8,
+    "autoConfirm": true,
+    "holdDurationMinutes": 15,
+    "privacyPolicyVersion": "v1.2-2026",
+    "blockingStatuses": [
+      "confirmed",
+      "pending",
+      "checked_in"
+    ],
+    "waitlistEnabled": true,
+    "noticeText": "Senza pagamento online. Ritiro e saldo direttamente alla cassa del teatro."
+  },
+  "bookings": [
+    {
+      "id": "book-1",
+      "code": "SIP-2026-X7K9P2",
+      "performanceId": "perf-1",
+      "showTitle": "Fiat Voluntas Dei",
+      "performanceDateTime": "2026-08-15T21:00:00.000Z",
+      "fullName": "Mario Rossi",
+      "email": "mario.rossi@email.it",
+      "phone": "+39 339 1234567",
+      "seatsCount": 2,
+      "notes": "Posti nelle prime file per persona anziana",
+      "status": "confirmed",
+      "createdAt": "2026-07-21T10:00:00.000Z",
+      "updatedAt": "2026-07-21T10:00:00.000Z",
+      "expiresAt": "2026-08-15T18:00:00.000Z",
+      "privacyConsented": true,
+      "marketingConsented": true,
+      "privacyPolicyVersion": "v1.2-2026",
+      "privacyConsentedAt": "2026-07-21T10:00:00.000Z"
+    },
+    {
+      "id": "book-2",
+      "code": "SIP-2026-B4M8Q9",
+      "performanceId": "perf-1",
+      "showTitle": "Fiat Voluntas Dei",
+      "performanceDateTime": "2026-08-15T21:00:00.000Z",
+      "fullName": "Giulia Bianchi",
+      "email": "giulia.bianchi@email.it",
+      "phone": "+39 340 9876543",
+      "seatsCount": 4,
+      "notes": "",
+      "status": "checked_in",
+      "createdAt": "2026-07-22T14:30:00.000Z",
+      "updatedAt": "2026-08-15T20:45:00.000Z",
+      "expiresAt": "2026-08-15T18:00:00.000Z",
+      "checkedInAt": "2026-08-15T20:45:00.000Z",
+      "checkedInBy": "boxoffice@ilsipario.it",
+      "privacyConsented": true,
+      "marketingConsented": false,
+      "privacyPolicyVersion": "v1.2-2026",
+      "privacyConsentedAt": "2026-07-22T14:30:00.000Z"
+    }
+  ],
+  "bookingEvents": [
+    {
+      "id": "event-1",
+      "bookingId": "book-1",
+      "eventType": "CREATED",
+      "newStatus": "confirmed",
+      "actor": "PUBLIC_USER",
+      "detailsJson": "{\"seatsCount\":2,\"code\":\"SIP-2026-X7K9P2\"}",
+      "createdAt": "2026-07-21T10:00:00.000Z"
+    },
+    {
+      "id": "event-2",
+      "bookingId": "book-1",
+      "eventType": "EMAIL_SENT",
+      "actor": "SYSTEM",
+      "detailsJson": "{\"subject\":\"[Il Sipario] Conferma Prenotazione: SIP-2026-X7K9P2\"}",
+      "createdAt": "2026-07-21T10:00:01.000Z"
+    },
+    {
+      "id": "event-3",
+      "bookingId": "book-2",
+      "eventType": "CHECKED_IN",
+      "previousStatus": "confirmed",
+      "newStatus": "checked_in",
+      "actor": "boxoffice@ilsipario.it",
+      "detailsJson": "{\"checkedInAt\":\"2026-08-15T20:45:00.000Z\"}",
+      "createdAt": "2026-08-15T20:45:00.000Z"
+    }
+  ],
+  "bookingHolds": []
+}

@@ -1,0 +1,6 @@
+{
+  "name": "Il Sipario – Compagnia Teatrale A.P.S.",
+  "description": "Sito ufficiale e sistema di prenotazione spettacoli della Compagnia Teatrale Il Sipario A.P.S. di Canicattini Bagni (SR)",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
