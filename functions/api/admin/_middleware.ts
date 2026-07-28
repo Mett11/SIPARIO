@@ -1,6 +1,8 @@
 import { verifyJWT } from '../../utils/jwt';
 
-export async function onRequest({ request, env, next }: any) {
+export async function onRequest(context: any) {
+  const { request, env, next } = context;
+
   // Skip middleware for login route itself
   const url = new URL(request.url);
   if (url.pathname.endsWith('/login')) {
@@ -26,7 +28,6 @@ export async function onRequest({ request, env, next }: any) {
   }
 
   // Pass user info to the next handlers via context.data
-  return next({
-    data: { user }
-  });
+  context.data.user = user;
+  return next();
 }
