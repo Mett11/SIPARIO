@@ -1,5 +1,6 @@
-export async function onRequestGet({ request, env, data }: any) {
-  const url = new URL(request.url);
+export async function onRequestGet(context: any) {
+  const { request, env, data } = context;
+  const url = new URL(context.request.url);
   const performanceId = url.searchParams.get('performanceId');
   const status = url.searchParams.get('status');
   const search = url.searchParams.get('search');

@@ -4,7 +4,7 @@ export async function onRequest(context: any) {
   const { request, env, next } = context;
 
   // Skip middleware for login route itself
-  const url = new URL(request.url);
+  const url = new URL(context.request.url);
   if (url.pathname.endsWith('/login')) {
     return next();
   }

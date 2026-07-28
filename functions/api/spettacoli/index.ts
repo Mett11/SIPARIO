@@ -1,5 +1,6 @@
-export async function onRequestGet({ request, env }: any) {
-  const url = new URL(request.url);
+export async function onRequestGet(context: any) {
+  const { request, env } = context;
+  const url = new URL(context.request.url);
   const status = url.searchParams.get('status');
   const publication_status = url.searchParams.get('publication_status');
 
@@ -45,7 +46,8 @@ export async function onRequestGet({ request, env }: any) {
   }
 }
 
-export async function onRequestPost({ request, env, data }: any) {
+export async function onRequestPost(context: any) {
+  const { request, env, data } = context;
   // TODO: Add auth middleware via _middleware.ts in /spettacoli if needed
   try {
     const body = await request.json();

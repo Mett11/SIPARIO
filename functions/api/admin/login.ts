@@ -1,6 +1,7 @@
 import { signJWT } from '../../utils/jwt';
 
-export async function onRequestPost({ request, env }: any) {
+export async function onRequestPost(context: any) {
+  const { request, env } = context;
   try {
     const { email, password } = await request.json();
 
@@ -27,7 +28,7 @@ export async function onRequestPost({ request, env }: any) {
       8 * 60 * 60 // 8 hours
     );
 
-    const isSecure = (new URL(request.url)).protocol === 'https:';
+    const isSecure = (new URL(context.request.url)).protocol === 'https:';
     
     return new Response(JSON.stringify({ success: true, user, token }), {
       headers: {
