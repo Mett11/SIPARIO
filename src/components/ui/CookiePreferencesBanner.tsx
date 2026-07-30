@@ -7,6 +7,7 @@ interface CookiePreferencesBannerProps {
   onUpdatePreferences: (updated: Partial<UserPreferences>) => void;
   isOpenModal: boolean;
   onCloseModal: () => void;
+  onOpenModal: () => void;
 }
 
 export const CookiePreferencesBanner: React.FC<CookiePreferencesBannerProps> = ({
@@ -14,6 +15,7 @@ export const CookiePreferencesBanner: React.FC<CookiePreferencesBannerProps> = (
   onUpdatePreferences,
   isOpenModal,
   onCloseModal,
+  onOpenModal,
 }) => {
   const [hasConsented, setHasConsented] = useState(() => preferences.cookieConsent);
 
@@ -36,7 +38,7 @@ export const CookiePreferencesBanner: React.FC<CookiePreferencesBannerProps> = (
           </p>
           <div className="flex items-center gap-3 shrink-0">
             <button
-              onClick={onCloseModal} // Opens preferences modal
+              onClick={onOpenModal}
               className="px-3 py-1.5 border border-[#FFFFFF]/50 text-[#FFFFFF] hover:bg-[#1A0505]/40 rounded text-xs transition"
             >
               Personalizza

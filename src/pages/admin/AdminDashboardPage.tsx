@@ -9,6 +9,7 @@ import { AdminSiteConfigTab } from '../../components/admin/AdminSiteConfigTab';
 import { AdminAuditLogsTab } from '../../components/admin/AdminAuditLogsTab';
 import { AdminPrenotazioniTab } from '../../components/admin/AdminPrenotazioniTab';
 import { AdminCastTab } from '../../components/admin/AdminCastTab';
+import { AdminProfileTab } from '../../components/admin/AdminProfileTab';
 import { AdminPreviewModal } from '../../components/admin/AdminPreviewModal';
 import {
   LayoutDashboard,
@@ -30,9 +31,12 @@ export const AdminDashboardPage: React.FC = () => {
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
   const [loginError, setLoginError] = useState('');
+  const [isRecoveringPassword, setIsRecoveringPassword] = useState(false);
+  const [recoveryMessage, setRecoveryMessage] = useState('');
+  const [isRecoveryLoading, setIsRecoveryLoading] = useState(false);
   const [currentRole, setCurrentRole] = useState<Role>('admin');
   const [activeTab, setActiveTab] = useState<
-    'dashboard' | 'prenotazioni' | 'spettacoli' | 'repliche' | 'cast' | 'blog' | 'media' | 'impostazioni' | 'audit'
+    'dashboard' | 'prenotazioni' | 'spettacoli' | 'repliche' | 'cast' | 'blog' | 'media' | 'impostazioni' | 'profilo' | 'audit'
   >('dashboard');
 
   // Preview Modal State
@@ -77,6 +81,32 @@ export const AdminDashboardPage: React.FC = () => {
     window.location.href = '/';
   };
 
+  const handlePasswordRecovery = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoginError('');
+    setRecoveryMessage('');
+    setIsRecoveryLoading(true);
+
+    try {
+      const response = await fetch('/api/admin/recover-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: loginEmail })
+      });
+      const data = await response.json();
+      
+      if (data.success) {
+        setRecoveryMessage(data.message);
+      } else {
+        setLoginError(data.error || 'Errore durante il recupero');
+      }
+    } catch (err: any) {
+      setLoginError('Errore di connessione');
+    } finally {
+      setIsRecoveryLoading(false);
+    }
+  };
+
   if (isCheckingAuth) {
     return <div className="min-h-screen bg-nero-palco flex items-center justify-center text-white">Caricamento...</div>;
   }
@@ -92,20 +122,44 @@ export const AdminDashboardPage: React.FC = () => {
             <h1 className="font-serif-display text-3xl font-bold text-white">Area Riservata</h1>
             <p className="text-gray-400 mt-2 text-sm">Accesso riservato allo staff de Il Sipario</p>
           </div>
-          <form onSubmit={handleLogin} className="space-y-4">
-            <div>
-              <label className="block text-xs uppercase tracking-widest text-gray-400 font-bold mb-2">Email</label>
-              <input type="email" value={loginEmail} onChange={e => setLoginEmail(e.target.value)} required className="w-full bg-[#050505]/50 border border-white/20 rounded p-3 text-white focus:outline-none focus:border-rosso-sipario transition-colors" />
-            </div>
-            <div>
-              <label className="block text-xs uppercase tracking-widest text-gray-400 font-bold mb-2">Password</label>
-              <input type="password" value={loginPassword} onChange={e => setLoginPassword(e.target.value)} required className="w-full bg-[#050505]/50 border border-white/20 rounded p-3 text-white focus:outline-none focus:border-rosso-sipario transition-colors" />
-            </div>
-            {loginError && <div className="text-rosso-sipario text-sm font-semibold">{loginError}</div>}
-            <button type="submit" className="w-full bg-rosso-sipario text-white font-bold uppercase tracking-widest py-3 rounded hover:bg-red-700 transition-colors">
-              Accedi
-            </button>
-          </form>
+
+          {isRecoveringPassword ? (
+            <form onSubmit={handlePasswordRecovery} className="space-y-4">
+              <div>
+                <label className="block text-xs uppercase tracking-widest text-gray-400 font-bold mb-2">Email</label>
+                <input type="email" value={loginEmail} onChange={e => setLoginEmail(e.target.value)} required className="w-full bg-[#050505]/50 border border-white/20 rounded p-3 text-white focus:outline-none focus:border-rosso-sipario transition-colors" />
+              </div>
+              
+              {loginError && <div className="text-rosso-sipario text-sm font-semibold">{loginError}</div>}
+              {recoveryMessage && <div className="text-green-500 text-sm font-semibold">{recoveryMessage}</div>}
+              
+              <button type="submit" disabled={isRecoveryLoading} className="w-full bg-rosso-sipario text-white font-bold uppercase tracking-widest py-3 rounded hover:bg-red-700 transition-colors disabled:opacity-50">
+                {isRecoveryLoading ? 'Invio in corso...' : 'Recupera Password'}
+              </button>
+              
+              <div className="mt-4 text-center">
+                <button type="button" onClick={() => { setIsRecoveringPassword(false); setLoginError(''); setRecoveryMessage(''); }} className="text-sm text-gray-400 hover:text-white transition-colors">Torna al Login</button>
+              </div>
+            </form>
+          ) : (
+            <form onSubmit={handleLogin} className="space-y-4">
+              <div>
+                <label className="block text-xs uppercase tracking-widest text-gray-400 font-bold mb-2">Email</label>
+                <input type="email" value={loginEmail} onChange={e => setLoginEmail(e.target.value)} required className="w-full bg-[#050505]/50 border border-white/20 rounded p-3 text-white focus:outline-none focus:border-rosso-sipario transition-colors" />
+              </div>
+              <div>
+                <div className="flex justify-between items-center mb-2">
+                  <label className="block text-xs uppercase tracking-widest text-gray-400 font-bold">Password</label>
+                  <button type="button" onClick={() => { setIsRecoveringPassword(true); setLoginError(''); }} className="text-xs text-gray-400 hover:text-white transition-colors">Dimenticata?</button>
+                </div>
+                <input type="password" value={loginPassword} onChange={e => setLoginPassword(e.target.value)} required className="w-full bg-[#050505]/50 border border-white/20 rounded p-3 text-white focus:outline-none focus:border-rosso-sipario transition-colors" />
+              </div>
+              {loginError && <div className="text-rosso-sipario text-sm font-semibold">{loginError}</div>}
+              <button type="submit" className="w-full bg-rosso-sipario text-white font-bold uppercase tracking-widest py-3 rounded hover:bg-red-700 transition-colors">
+                Accedi
+              </button>
+            </form>
+          )}
           <div className="mt-6 text-center">
             <a href="/" className="text-sm text-gray-500 hover:text-white transition-colors">Torna al sito</a>
           </div>
@@ -139,6 +193,7 @@ export const AdminDashboardPage: React.FC = () => {
               { id: 'blog', label: 'Notizie & Novità', icon: BookOpen, roles: ['admin', 'editor'] },
               { id: 'media', label: 'Foto e Locandine', icon: ImageIcon, roles: ['admin', 'editor'] },
               { id: 'impostazioni', label: 'Dati e Contatti Compagnia', icon: Settings, roles: ['admin'] },
+              { id: 'profilo', label: 'Il Mio Profilo', icon: Users, roles: ['admin', 'editor', 'box_office'] },
               { id: 'audit', label: 'Registro Modifiche', icon: History, roles: ['admin', 'editor'] },
             ].map((item) => {
               const hasAccess = item.roles.includes(currentRole);
@@ -292,7 +347,7 @@ export const AdminDashboardPage: React.FC = () => {
         {activeTab === 'media' && <AdminMediaTab role={currentRole} />}
 
         {activeTab === 'impostazioni' && <AdminSiteConfigTab role={currentRole} />}
-
+        {activeTab === 'profilo' && <AdminProfileTab />}
         {activeTab === 'audit' && <AdminAuditLogsTab role={currentRole} />}
       </main>
 
