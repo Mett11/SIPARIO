@@ -24,12 +24,14 @@ export const LiveEditManager = {
         els.forEach(el => {
           if (overrides[path].type === 'text') {
             const hasElementChildren = Array.from(el.children).some(c => c.tagName !== 'BR');
-            if (!hasElementChildren) {
+            if (!hasElementChildren && el.textContent !== overrides[path].content) {
               el.textContent = overrides[path].content;
             }
           }
           if (overrides[path].type === 'image') {
-            (el as HTMLImageElement).src = overrides[path].content;
+            if (el.getAttribute('src') !== overrides[path].content) {
+              (el as HTMLImageElement).src = overrides[path].content;
+            }
           }
         });
       } catch (e) {}
@@ -69,12 +71,18 @@ export function useLiveEdit() {
 
     const isEditMode = hasLiveParam || (window.self !== window.top && sessionStorage.getItem('live_edit_active') === 'true');
     
-    // Always apply overrides on any page render
-    const apply = () => LiveEditManager.applyOverrides(document.body);
+    let isApplying = false;
+    const apply = () => {
+      if (isApplying) return;
+      isApplying = true;
+      LiveEditManager.applyOverrides(document.body);
+      // Small timeout to allow mutations from React to settle? Actually just sync is fine
+      isApplying = false;
+    };
     apply();
     
     const observer = new MutationObserver(() => apply());
-    observer.observe(document.body, { childList: true, subtree: true });
+    observer.observe(document.body, { childList: true, subtree: true, characterData: true });
     
     if (isEditMode) {
       document.body.classList.add('live-edit-active');
