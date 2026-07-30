@@ -10,8 +10,11 @@ export const LiveEditManager = {
   },
   saveOverride: (path: string, content: string, type: 'text' | 'image') => {
     const overrides = LiveEditManager.getOverrides();
-    overrides[path] = { content, type };
+    overrides[path] = { content, type, updatedAt: new Date().toISOString() };
     localStorage.setItem('live_edit_overrides', JSON.stringify(overrides));
+  },
+  clearOverrides: () => {
+    localStorage.removeItem('live_edit_overrides');
   },
   applyOverrides: (container: HTMLElement) => {
     const overrides = LiveEditManager.getOverrides();
@@ -57,9 +60,16 @@ export const LiveEditManager = {
 
 export function useLiveEdit() {
   useEffect(() => {
-    const isEditMode = new URLSearchParams(window.location.search).get('liveEdit') === 'true';
+    const urlParams = new URLSearchParams(window.location.search);
+    const hasLiveParam = urlParams.get('liveEdit') === 'true';
+
+    if (hasLiveParam) {
+      sessionStorage.setItem('live_edit_active', 'true');
+    }
+
+    const isEditMode = hasLiveParam || (window.self !== window.top && sessionStorage.getItem('live_edit_active') === 'true');
     
-    // Always apply overrides whether in edit mode or not
+    // Always apply overrides on any page render
     const apply = () => LiveEditManager.applyOverrides(document.body);
     apply();
     
@@ -69,10 +79,11 @@ export function useLiveEdit() {
     if (isEditMode) {
       document.body.classList.add('live-edit-active');
       
+      const EDITABLE_TEXT_TAGS = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'P'];
+
       const handleMouseOver = (e: MouseEvent) => {
         const target = e.target as HTMLElement;
-        if (['H1', 'H2', 'H3', 'H4', 'P', 'SPAN', 'A', 'LI'].includes(target.tagName) || target.tagName === 'IMG') {
-          // Avoid messing with SVGs or complex icons
+        if (EDITABLE_TEXT_TAGS.includes(target.tagName) || target.tagName === 'IMG') {
           if (target.closest('svg')) return;
           target.style.outline = '2px dashed #E60000';
           target.style.outlineOffset = '2px';
@@ -90,7 +101,7 @@ export function useLiveEdit() {
         const target = e.target as HTMLElement;
         if (target.closest('svg')) return;
         
-        if (['H1', 'H2', 'H3', 'H4', 'P', 'SPAN', 'A', 'LI'].includes(target.tagName)) {
+        if (EDITABLE_TEXT_TAGS.includes(target.tagName)) {
           e.preventDefault();
           e.stopPropagation();
           target.contentEditable = 'true';
@@ -125,6 +136,8 @@ export function useLiveEdit() {
           };
           fileInput.click();
         }
+        // For links, buttons, spans, nav items: do not call preventDefault or stopPropagation
+        // so navigation works inside the live edit iframe!
       };
       
       document.body.addEventListener('mouseover', handleMouseOver);
