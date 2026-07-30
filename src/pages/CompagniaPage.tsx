@@ -39,10 +39,7 @@ export const CompagniaPage: React.FC = () => {
           <p className="text-xs sm:text-sm text-[#FFFFFF]/85 leading-relaxed">
             Fondata a Canicattini Bagni, l'A.P.S. “Il Sipario” riunisce persone unite dall'amore per le tavole del palcoscenico. Nel corso degli anni la compagnia ha portato in scena capolavori del teatro dialettale siciliano, commedie brillanti e produzioni originali, diventando un punto di riferimento culturale per la comunità iblea.
           </p>
-          <div className="p-3 bg-[#050505] border border-amber-500/40 rounded text-[11px] text-amber-200 flex items-center gap-2">
-            <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0" />
-            <span>Note storiche in corso di validazione formale con la compagnia.</span>
-          </div>
+
         </div>
 
         <div className="bg-[#050505] border border-[#FFFFFF]/30 p-8 rounded-xl space-y-4">

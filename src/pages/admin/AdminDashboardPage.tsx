@@ -11,6 +11,7 @@ import { AdminPrenotazioniTab } from '../../components/admin/AdminPrenotazioniTa
 import { AdminCastTab } from '../../components/admin/AdminCastTab';
 import { AdminProfileTab } from '../../components/admin/AdminProfileTab';
 import { AdminPreviewModal } from '../../components/admin/AdminPreviewModal';
+import { AdminLiveEditTab } from '../../components/admin/AdminLiveEditTab';
 import {
   LayoutDashboard,
   Film,
@@ -23,6 +24,7 @@ import {
   LogOut,
   Ticket,
   Plus,
+  Edit3
 } from 'lucide-react';
 
 export const AdminDashboardPage: React.FC = () => {
@@ -36,7 +38,7 @@ export const AdminDashboardPage: React.FC = () => {
   const [isRecoveryLoading, setIsRecoveryLoading] = useState(false);
   const [currentRole, setCurrentRole] = useState<Role>('admin');
   const [activeTab, setActiveTab] = useState<
-    'dashboard' | 'prenotazioni' | 'spettacoli' | 'repliche' | 'cast' | 'blog' | 'media' | 'impostazioni' | 'profilo' | 'audit'
+    'dashboard' | 'live-edit' | 'prenotazioni' | 'spettacoli' | 'repliche' | 'cast' | 'blog' | 'media' | 'impostazioni' | 'profilo' | 'audit'
   >('dashboard');
 
   // Preview Modal State
@@ -186,6 +188,7 @@ export const AdminDashboardPage: React.FC = () => {
           <nav className="space-y-1 text-xs font-medium">
             {[
               { id: 'dashboard', label: 'Panoramica', icon: LayoutDashboard, roles: ['admin', 'editor', 'box_office'] },
+              { id: 'live-edit', label: 'Modifica Sito (Live)', icon: Edit3, roles: ['admin', 'editor'] },
               { id: 'prenotazioni', label: 'Prenotazioni Ricevute', icon: Ticket, roles: ['admin', 'box_office'] },
               { id: 'spettacoli', label: 'Spettacoli in Cartellone', icon: Film, roles: ['admin', 'editor'] },
               { id: 'repliche', label: 'Date & Repliche', icon: Calendar, roles: ['admin', 'box_office'] },
@@ -225,8 +228,9 @@ export const AdminDashboardPage: React.FC = () => {
       </aside>
 
       {/* Main Content Area */}
-      <main className="flex-1 p-6 sm:p-10 space-y-8 max-w-7xl mx-auto">
+      <main className="flex-1 p-6 sm:p-10 space-y-8 max-w-7xl mx-auto w-full">
         {/* Active Tab View Rendering */}
+        {activeTab === 'live-edit' && <AdminLiveEditTab />}
         {activeTab === 'dashboard' && (
           <div className="space-y-8">
             <div className="border-b border-[#FFFFFF]/30 pb-6">

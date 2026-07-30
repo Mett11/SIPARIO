@@ -18,8 +18,8 @@ import { NotFoundPage } from './pages/NotFoundPage';
 import { AdminDashboardPage } from './pages/admin/AdminDashboardPage';
 import { TheatreRepository } from './lib/repository';
 import { SiteConfig, UserPreferences } from './types';
-
 import { RealisticSipario } from './components/ui/RealisticSipario';
+import { useLiveEdit } from './lib/liveEdit';
 
 // ScrollToTop Helper component on route change
 function ScrollToTop() {
@@ -83,6 +83,8 @@ function AnimatedRoutes({
 }
 
 export default function App() {
+  useLiveEdit();
+
   const [siteConfig, setSiteConfig] = useState<SiteConfig>({
     name: 'Il Sipario – Compagnia Teatrale A.P.S.',
     address: 'Via Antonino Uccello 6, Canicattini Bagni (SR)',
@@ -156,6 +158,7 @@ export default function App() {
           onUpdatePreferences={handleUpdatePreferences}
           isOpenModal={isPreferencesModalOpen}
           onCloseModal={() => setIsPreferencesModalOpen(false)}
+          onOpenModal={() => setIsPreferencesModalOpen(true)}
         />
       </div>
     </BrowserRouter>

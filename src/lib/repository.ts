@@ -39,6 +39,10 @@ export const TheatreRepository = {
     return data.user;
   },
 
+  getAdminToken() {
+    return localStorage.getItem('admin_token') || '';
+  },
+
   async logout() {
     if (typeof window !== 'undefined') {
       localStorage.removeItem('admin_token');
