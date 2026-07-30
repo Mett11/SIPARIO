@@ -9,24 +9,26 @@ export async function onRequestPost(context: any) {
       return new Response(JSON.stringify({ success: false, error: 'Database non disponibile' }), { status: 500 });
     }
 
-    const userResult = await env.DB.prepare('SELECT id, full_name FROM users WHERE email = ? AND is_active = 1').bind(email.toLowerCase()).first();
+    const userResult = await env.DB.prepare('SELECT id, full_name FROM users WHERE LOWER(email) = ? AND is_active = 1').bind((email || '').toLowerCase()).first();
     
     if (!userResult) {
-      // Don't leak if email exists or not
       return new Response(JSON.stringify({ success: true, message: 'Se l\'email esiste nel sistema, riceverai una nuova password' }), {
         headers: { 'Content-Type': 'application/json' }
       });
     }
 
-    const newPassword = Math.random().toString(36).slice(-8); // Generate an 8 char random password
+    const resendApiKey = env.RESEND_API_KEY;
+    const isMockResend = !resendApiKey || resendApiKey === 're_123456789' || !resendApiKey.startsWith('re_');
+
+    // In demo / mock mode, reset password back to 'admin'
+    const newPassword = isMockResend ? 'admin' : Math.random().toString(36).slice(-8);
     const newHash = await hashPassword(newPassword);
 
     await env.DB.prepare('UPDATE users SET password_hash = ?, updated_at = datetime("now") WHERE id = ?')
       .bind(newHash, userResult.id)
       .run();
 
-    const resendApiKey = env.RESEND_API_KEY;
-    if (resendApiKey && resendApiKey.startsWith('re_')) {
+    if (!isMockResend) {
       const resendResponse = await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {
@@ -45,10 +47,15 @@ export async function onRequestPost(context: any) {
       }
     }
 
-    return new Response(JSON.stringify({ success: true, message: 'Se l\'email esiste nel sistema, riceverai una nuova password' }), {
+    const message = isMockResend
+      ? `Password ripristinata con successo a: admin`
+      : 'Se l\'email esiste nel sistema, riceverai una nuova password via email';
+
+    return new Response(JSON.stringify({ success: true, message }), {
       headers: { 'Content-Type': 'application/json' }
     });
   } catch (error: any) {
     return new Response(JSON.stringify({ success: false, error: 'Errore interno' }), { status: 500 });
   }
 }
+

@@ -11,4 +11,4 @@ RESEND_API_KEY = "re_123456789" # Sostituisci con la tua chiave Resend
 [[d1_databases]]
 binding = "DB"
 database_name = "ilsipario-db"
-database_id = "8c555030-1aa3-4048-a536-197eaf75428a" # Sostituisci dopo 'wrangler d1 create'
+database_id = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" # Sostituisci dopo 'wrangler d1 create'
