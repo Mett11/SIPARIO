@@ -23,9 +23,8 @@ export const LiveEditManager = {
         const els = container.querySelectorAll(path);
         els.forEach(el => {
           if (overrides[path].type === 'text') {
-            const hasElementChildren = Array.from(el.children).some(c => c.tagName !== 'BR');
-            if (!hasElementChildren && el.textContent !== overrides[path].content) {
-              el.textContent = overrides[path].content;
+            if (el.innerHTML !== overrides[path].content) {
+              el.innerHTML = overrides[path].content;
             }
           }
           if (overrides[path].type === 'image') {
@@ -57,11 +56,44 @@ export const LiveEditManager = {
       current = current.parentElement as HTMLElement;
     }
     return path.join(' > ');
+  },
+  loadFromDB: async () => {
+    try {
+      const res = await fetch('/api/live-edit');
+      if (res.ok) {
+        const data = await res.json();
+        if (Object.keys(data).length > 0) {
+          localStorage.setItem('live_edit_overrides', JSON.stringify(data));
+          LiveEditManager.applyOverrides(document.body);
+        }
+      }
+    } catch (e) {
+      console.error('Failed to load overrides from DB', e);
+    }
+  },
+  saveToDB: async (token: string) => {
+    try {
+      const overrides = LiveEditManager.getOverrides();
+      const res = await fetch('/api/admin/live-edit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ overrides })
+      });
+      return res.ok;
+    } catch (e) {
+      console.error('Failed to save overrides to DB', e);
+      return false;
+    }
   }
 };
 
 export function useLiveEdit() {
   useEffect(() => {
+    LiveEditManager.loadFromDB();
+    
     const urlParams = new URLSearchParams(window.location.search);
     const hasLiveParam = urlParams.get('liveEdit') === 'true';
 
@@ -71,17 +103,14 @@ export function useLiveEdit() {
 
     const isEditMode = hasLiveParam || (window.self !== window.top && sessionStorage.getItem('live_edit_active') === 'true');
     
-    let isApplying = false;
-    const apply = () => {
-      if (isApplying) return;
-      isApplying = true;
+    const observer = new MutationObserver((mutations) => {
+      // Disconnect briefly to avoid infinite loop when applying overrides
+      observer.disconnect();
       LiveEditManager.applyOverrides(document.body);
-      // Small timeout to allow mutations from React to settle? Actually just sync is fine
-      isApplying = false;
-    };
-    apply();
+      observer.observe(document.body, { childList: true, subtree: true, characterData: true });
+    });
     
-    const observer = new MutationObserver(() => apply());
+    LiveEditManager.applyOverrides(document.body);
     observer.observe(document.body, { childList: true, subtree: true, characterData: true });
     
     if (isEditMode) {
@@ -119,7 +148,7 @@ export function useLiveEdit() {
             target.contentEditable = 'false';
             target.style.outline = '';
             const path = LiveEditManager.getPath(target);
-            LiveEditManager.saveOverride(path, target.textContent || '', 'text');
+            LiveEditManager.saveOverride(path, target.innerHTML || '', 'text');
             target.removeEventListener('blur', onBlur);
           };
           target.addEventListener('blur', onBlur);
@@ -144,8 +173,6 @@ export function useLiveEdit() {
           };
           fileInput.click();
         }
-        // For links, buttons, spans, nav items: do not call preventDefault or stopPropagation
-        // so navigation works inside the live edit iframe!
       };
       
       document.body.addEventListener('mouseover', handleMouseOver);

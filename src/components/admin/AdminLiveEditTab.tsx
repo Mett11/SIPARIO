@@ -1,21 +1,35 @@
 import React, { useState } from 'react';
-import { Save, RefreshCw, CheckCircle2, Info, Eye } from 'lucide-react';
+import { Save, RefreshCw, CheckCircle2, Info, Eye, Loader2 } from 'lucide-react';
 import { LiveEditManager } from '../../lib/liveEdit';
+import { TheatreRepository } from '../../lib/repository';
 
 export const AdminLiveEditTab: React.FC = () => {
   const [savedStatus, setSavedStatus] = useState<string | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
 
-  const handleSaveChanges = () => {
-    const overrides = LiveEditManager.getOverrides();
-    const count = Object.keys(overrides).length;
-    // Overrides are already saved on blur/upload in localStorage, but this gives explicit feedback
-    setSavedStatus(`Tutte le ${count} modifiche al layout e ai testi sono state salvate!`);
+  const handleSaveChanges = async () => {
+    setIsSaving(true);
+    setSavedStatus('Salvataggio in corso...');
+    
+    const token = TheatreRepository.getAdminToken();
+    const success = await LiveEditManager.saveToDB(token);
+    
+    setIsSaving(false);
+    if (success) {
+      const count = Object.keys(LiveEditManager.getOverrides()).length;
+      setSavedStatus(`Tutte le ${count} modifiche al layout e ai testi sono state pubblicate!`);
+    } else {
+      setSavedStatus(`Errore durante il salvataggio. Riprova.`);
+    }
     setTimeout(() => setSavedStatus(null), 4000);
   };
 
-  const handleResetChanges = () => {
-    if (confirm('Sei sicuro di voler ripristinare i testi e le immagini originali del sito?')) {
+  const handleResetChanges = async () => {
+    if (confirm('Sei sicuro di voler ripristinare i testi e le immagini originali del sito? Perderai tutte le modifiche!')) {
       LiveEditManager.clearOverrides();
+      const token = TheatreRepository.getAdminToken();
+      await LiveEditManager.saveToDB(token);
+      
       setSavedStatus('Modifiche ripristinate agli originali.');
       setTimeout(() => {
         window.location.reload();
@@ -52,10 +66,11 @@ export const AdminLiveEditTab: React.FC = () => {
 
           <button
             onClick={handleSaveChanges}
-            className="flex items-center gap-2 px-4 py-2 bg-rosso-sipario hover:bg-red-700 text-white text-xs rounded-lg font-bold shadow-lg transition"
+            disabled={isSaving}
+            className="flex items-center gap-2 px-4 py-2 bg-rosso-sipario hover:bg-red-700 disabled:opacity-50 text-white text-xs rounded-lg font-bold shadow-lg transition"
           >
-            <Save className="w-4 h-4" />
-            <span>Salva Modifiche</span>
+            {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+            <span>{isSaving ? 'Salvataggio...' : 'Salva Modifiche'}</span>
           </button>
         </div>
       </div>
