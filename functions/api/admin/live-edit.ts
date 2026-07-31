@@ -9,7 +9,8 @@ export async function onRequestPost(context: any) {
   }
   const token = authHeader.split(' ')[1];
   try {
-    await verifyJWT(token, env.ADMIN_SECRET_KEY || 'sipario_admin_secret_key_2026');
+    const payload = await verifyJWT(token, env.ADMIN_SECRET_KEY || 'sipario_admin_secret_key_2026');
+    if (!payload) return new Response('Unauthorized', { status: 401 });
   } catch (e) {
     return new Response('Unauthorized', { status: 401 });
   }

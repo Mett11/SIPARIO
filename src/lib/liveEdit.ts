@@ -22,6 +22,9 @@ export const LiveEditManager = {
       try {
         const els = container.querySelectorAll(path);
         els.forEach(el => {
+          // Skip if the user is currently editing this element
+          if ((el as HTMLElement).isContentEditable) return;
+          
           if (overrides[path].type === 'text') {
             if (el.innerHTML !== overrides[path].content) {
               el.innerHTML = overrides[path].content;
@@ -103,11 +106,14 @@ export function useLiveEdit() {
 
     const isEditMode = hasLiveParam || (window.self !== window.top && sessionStorage.getItem('live_edit_active') === 'true');
     
+    let timeoutId: any = null;
     const observer = new MutationObserver((mutations) => {
-      // Disconnect briefly to avoid infinite loop when applying overrides
-      observer.disconnect();
-      LiveEditManager.applyOverrides(document.body);
-      observer.observe(document.body, { childList: true, subtree: true, characterData: true });
+      if (timeoutId) clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        observer.disconnect();
+        LiveEditManager.applyOverrides(document.body);
+        observer.observe(document.body, { childList: true, subtree: true, characterData: true });
+      }, 100);
     });
     
     LiveEditManager.applyOverrides(document.body);
@@ -116,10 +122,12 @@ export function useLiveEdit() {
     if (isEditMode) {
       document.body.classList.add('live-edit-active');
       
-      const EDITABLE_TEXT_TAGS = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'P'];
+      const EDITABLE_TEXT_TAGS = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'P', 'SPAN', 'STRONG', 'EM', 'B', 'I', 'LI', 'LABEL'];
 
       const handleMouseOver = (e: MouseEvent) => {
         const target = e.target as HTMLElement;
+        if (target.closest('a') || target.closest('button')) return; // Allow navigation
+        
         if (EDITABLE_TEXT_TAGS.includes(target.tagName) || target.tagName === 'IMG') {
           if (target.closest('svg')) return;
           target.style.outline = '2px dashed #E60000';
@@ -136,7 +144,7 @@ export function useLiveEdit() {
       
       const handleClick = (e: MouseEvent) => {
         const target = e.target as HTMLElement;
-        if (target.closest('svg')) return;
+        if (target.closest('svg') || target.closest('a') || target.closest('button')) return; // Allow navigation
         
         if (EDITABLE_TEXT_TAGS.includes(target.tagName)) {
           e.preventDefault();

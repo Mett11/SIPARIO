@@ -23,10 +23,9 @@ import { useLiveEdit } from './lib/liveEdit';
 
 // ScrollToTop Helper component on route change
 function ScrollToTop() {
-  const { pathname } = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [pathname]);
+  }, []);
   return null;
 }
 
@@ -61,6 +60,7 @@ function AnimatedRoutes({
   return (
     <AnimatePresence mode="wait">
       <motion.div key={location.pathname} className="w-full h-full flex-1 relative flex flex-col">
+        <ScrollToTop />
         <RealisticSipario>
           <Routes location={location}>
             <Route path="/" element={<HomePage userPreferences={preferences} />} />
@@ -131,7 +131,6 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <ScrollToTop />
       <div className="min-h-screen flex flex-col bg-[#050505] text-[#FFFFFF]">
         <Routes>
           {/* Admin Route Layout (Standalone) */}
